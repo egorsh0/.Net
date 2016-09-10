@@ -17,6 +17,13 @@ namespace Taxi
             bool isAgree = false;
             while(isAgree != true)
             {
+                //Проверка начальной цены Пети и таксиста
+                if (moneyPetya > maxTaxi)  
+                {
+                    isAgree = true;
+                    break;
+                }
+                //Ввод и проверка новой цены Пети со старой ценой таксиста
                 moneyPetya = moneyPetya + Convert.ToInt32(data[1]);
                 if (moneyPetya > moneyTaxi)
                 {
@@ -26,6 +33,7 @@ namespace Taxi
                 }
                 else
                 {
+                    //Проверка на равенство цен Пети и Таксиста после скидки
                     moneyTaxi = moneyTaxi - Convert.ToInt32(data[3]);
                     if (moneyTaxi != moneyPetya)
                     {
