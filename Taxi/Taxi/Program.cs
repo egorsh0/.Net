@@ -20,6 +20,7 @@ namespace Taxi
                 moneyPetya = moneyPetya + Convert.ToInt32(data[1]);
                 if (moneyPetya > moneyTaxi)
                 {
+                    moneyPetya = moneyTaxi;
                     isAgree = true;
                     break;
                 }
@@ -33,6 +34,12 @@ namespace Taxi
                             moneyTaxi = moneyPetya;
                             isAgree = true;
                         }
+                    }
+                    else
+                    {
+                        moneyPetya = moneyPetya + Convert.ToInt32(data[1]);
+                        isAgree = true;
+                        break;
                     }
                 }
             }
