@@ -3,6 +3,9 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
 namespace Bookvoed
 {
     class Program
@@ -10,69 +13,115 @@ namespace Bookvoed
         private static HtmlWeb webDocument = new HtmlWeb();
         private static HtmlDocument doc = null;
 
-        private static void getInfoForBook(int Id, string link)
+        private static void ById()
         {
-            var nodesNamed = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]/div[3]/div/div["+ Id +"]/div[3]/div/h5[1]");
-            var nodesAuthor = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]/div[3]/div/div["+ Id +"]/div[3]/div/h5[2]");
-            var nodesSeries = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]/div[3]/div/div[" + Id + "]/div[3]/div/div[2]/a[1]");
-            var nodesSubjects = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]/div[3]/div/div["+ Id + "]/div[3]/div/div[2]/a[2]");
+            Console.WriteLine("Введите ID книги для поиска =>  ");
+            string ID = Console.ReadLine();
+            getInfoById(ID);
+        }
 
-            var innerTextNamed = nodesNamed.Select(node => node.InnerText);
-            var innerTextAuthor = nodesAuthor.Select(node => node.InnerText);
-            var innerTextSeries = nodesSeries.Select(node => node.InnerText);
-            var innerTextSubject = nodesSubjects.Select(node => node.InnerText);
-
+        private static void ByKeyword()
+        {
+            Console.WriteLine("Введите ключевое слово для поиска =>  ");
+            string search = Console.ReadLine();
             Console.WriteLine();
-            Console.WriteLine("Named: " + innerTextNamed.ToList()[0]);
-            Console.WriteLine("Author: " + innerTextAuthor.ToList()[0]);
-            Console.WriteLine("Author: " + innerTextSeries.ToList()[0]);
-            Console.WriteLine("Subject: " + innerTextSubject.ToList()[0]);
-            Console.WriteLine("Book Id: " + link);
+            string htmlBookvoed = Resource.searchUrl + search;
+            try
+            {
+                doc = webDocument.Load(htmlBookvoed);
+                var nodesNamed = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]//div//div//div//div//div//h5//a");
+                var innerTextNamed = nodesNamed.Select(node => node.InnerText);
+
+                for (int i = 0; i < nodesNamed.Count(); i++)
+                {
+                    Console.WriteLine(Convert.ToString(i + 1) + ") " + innerTextNamed.ToList()[i]);
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Введите номер книги для рассмотрения => ");
+
+                int numberBooks = Convert.ToInt32(Console.ReadLine());
+                int index = 0;
+                foreach (HtmlNode link in nodesNamed)
+                {
+                    if (index == (numberBooks - 1))
+                    {
+                        HtmlAttribute att = link.Attributes["href"];
+                        getInfoById(new Regex(@"(?<=[\?&]id=)\d+(?=\&|\#|$)").Match(att.Value).Value);
+                        break;
+                    }
+                    else index++;
+                }
+            }
+            catch (System.Net.WebException ex)
+            {
+                Console.WriteLine("Error load page >> " + ex.Message);
+            }
+        }
+
+        private static void getInfoById(string link)
+        {
+            ChromeDriver driver = new ChromeDriver();
+            string baseUrl = "http://www.bookvoed.ru/book?id=" + link;
+            driver.Navigate().GoToUrl(baseUrl);
+            driver.FindElement(By.CssSelector("#aboutTabs_info_name > div.tj.wB")).Click();
+
+            var name = driver.FindElement(By.CssSelector("h1")).Text;
+            var author = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[1]/td[2]")).Text;
+            var series = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[3]/td[2]")).Text; ;
+            var subject = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[4]/td[2]")).Text;
+            var year = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[6]/td[2]")).Text;
+
+            Console.WriteLine("Название:" + name);
+            Console.WriteLine();
+            Console.WriteLine("Автор: " + author);
+            Console.WriteLine("Серия: " + series);
+            Console.WriteLine("Издательство: " + subject);
+            Console.WriteLine("Год: " + year);
+
+            Console.ReadKey();
+        }
+        private static void Menu()
+        {
+            Console.Clear();
+            Console.WriteLine("1) Поиск по ID");
+            Console.WriteLine("2) Поиск по KEYWORD");
+            Console.WriteLine("3) - EXIT");
         }
 
         static void Main(string[] args)
         {
-            while (true)
+            bool exit = false;
+            while (!exit)
             {
-                Console.Clear();
-                Console.WriteLine("Input value for search >> ");
-                string search = Console.ReadLine();
-                Console.WriteLine("//////////////////////////////////////////////////////////////////////////////");
-                Console.WriteLine();
-                string htmlBookvoed = "http://www.bookvoed.ru/books?q=" + search;
-                try
+                Menu();
+                int key;
+                bool keyAction = Int32.TryParse(Console.ReadLine(), out key);
+
+                if (keyAction)
                 {
-                    doc = webDocument.Load(htmlBookvoed);
-                    var nodesNamed = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]//div//div//div//div//div//h5//a");
-                    var innerTextNamed = nodesNamed.Select(node => node.InnerText);
-
-                    for (int i = 0; i < nodesNamed.Count(); i++)
+                    while (key > 3 || key < 1)
                     {
-                        Console.WriteLine(Convert.ToString(i + 1) + ") " + innerTextNamed.ToList()[i]);
+                        Console.Write("\nНеизвестное значение операции!\n\n");
+                        Menu();
+                        Int32.TryParse(Console.ReadLine(), out key);
                     }
-
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine("Input number books >> ");
-
-                    int numberBooks = Convert.ToInt32(Console.ReadLine());
-                    int index = 0;
-                    foreach (HtmlNode link in nodesNamed)
+                    switch (key)
                     {
-                        if (index == (numberBooks - 1))
-                        {
-                            HtmlAttribute att = link.Attributes["href"];
-                            getInfoForBook(numberBooks, new Regex(@"(?<=[\?&]id=)\d+(?=\&|\#|$)").Match(att.Value).Value);
+                        case 1:
+                            ById();
                             break;
-                        }
-                        else index++;
+
+                        case 2:
+                            ByKeyword();
+                            break;
+                        case 3:
+                            exit = true;
+                            break;
                     }
                 }
-                catch (System.Net.WebException ex)
-                {
-                    Console.WriteLine("Error load page >> " + ex.Message);
-                }
-                Console.ReadKey();
+                else
+                    Console.Write("\nНеизвестное значение операции!\n\n");
             }
         }
     }

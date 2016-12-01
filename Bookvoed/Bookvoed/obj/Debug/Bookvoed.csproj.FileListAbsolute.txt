@@ -7,3 +7,16 @@ C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\HtmlAgilityPack.
 C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.csprojResolveAssemblyReference.cache
 C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.exe
 C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.pdb
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\MongoDB.Bson.dll
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\MongoDB.Driver.Core.dll
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\MongoDB.Driver.dll
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\WebDriver.dll
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\WebDriver.Support.dll
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\MongoDB.Bson.xml
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\MongoDB.Driver.xml
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\MongoDB.Driver.Core.xml
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\WebDriver.xml
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\WebDriver.Support.xml
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.Resource.resources
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.csproj.GenerateResource.Cache

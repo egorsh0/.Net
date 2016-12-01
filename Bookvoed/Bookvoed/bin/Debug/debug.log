@@ -1,0 +1,18 @@
+[1201/163908:ERROR:process_reader_win.cc(114)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены.  (0xc0000022)
+[1201/163908:ERROR:exception_snapshot_win.cc(87)] thread ID 1028 not found in process
+[1201/163908:WARNING:crash_report_exception_handler.cc(56)] ProcessSnapshotWin::Initialize failed
+[1201/164227:ERROR:process_reader_win.cc(114)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены.  (0xc0000022)
+[1201/164227:ERROR:exception_snapshot_win.cc(87)] thread ID 7992 not found in process
+[1201/164227:WARNING:crash_report_exception_handler.cc(56)] ProcessSnapshotWin::Initialize failed
+[1201/164512:ERROR:process_reader_win.cc(114)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены.  (0xc0000022)
+[1201/164512:ERROR:exception_snapshot_win.cc(87)] thread ID 4368 not found in process
+[1201/164512:WARNING:crash_report_exception_handler.cc(56)] ProcessSnapshotWin::Initialize failed
+[1201/172512:ERROR:process_reader_win.cc(114)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены.  (0xc0000022)
+[1201/172512:ERROR:exception_snapshot_win.cc(87)] thread ID 10000 not found in process
+[1201/172512:WARNING:crash_report_exception_handler.cc(56)] ProcessSnapshotWin::Initialize failed
+[1201/172621:ERROR:process_reader_win.cc(114)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены.  (0xc0000022)
+[1201/172621:ERROR:exception_snapshot_win.cc(87)] thread ID 12112 not found in process
+[1201/172621:WARNING:crash_report_exception_handler.cc(56)] ProcessSnapshotWin::Initialize failed
+[1201/172831:ERROR:process_reader_win.cc(114)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены.  (0xc0000022)
+[1201/172831:ERROR:exception_snapshot_win.cc(87)] thread ID 5900 not found in process
+[1201/172831:WARNING:crash_report_exception_handler.cc(56)] ProcessSnapshotWin::Initialize failed
