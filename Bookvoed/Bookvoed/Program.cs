@@ -1,43 +1,33 @@
 ﻿using HtmlAgilityPack;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Bookvoed
 {
     class Program
     {
+        private static HtmlWeb webDocument = new HtmlWeb();
+        private static HtmlDocument doc = null;
 
-        private static void getInfoForBook(string Id)
+        private static void getInfoForBook(int Id, string link)
         {
-            string htmlBookvoed = "http://www.bookvoed.ru/book?id=" + Id;
-            HtmlDocument doc = null;
+            var nodesNamed = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]/div[3]/div/div["+ Id +"]/div[3]/div/h5[1]");
+            var nodesAuthor = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]/div[3]/div/div["+ Id +"]/div[3]/div/h5[2]");
+            var nodesSeries = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]/div[3]/div/div[" + Id + "]/div[3]/div/div[2]/a[1]");
+            var nodesSubjects = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]/div[3]/div/div["+ Id + "]/div[3]/div/div[2]/a[2]");
 
-            try
-            {
-                HtmlWeb webDocument = new HtmlWeb();
-                doc = webDocument.Load(htmlBookvoed);
-                var nodesNamed = doc.DocumentNode.SelectNodes("/html/body/div[1]/div[1]/div/h1/text()[1]");
-                var nodesPrice = doc.DocumentNode.SelectNodes("//*[@id=\"book_buttons\"]/div[3]/div[2]/div[2]");
-                //var nodesDescription = doc.DocumentNode.SelectNodes("//*[@id=\"aboutTabs_descr_content\"]/div/div/text()[1]");
-                var nodesDescription = doc.DocumentNode.SelectNodes("//*[@id=\"aboutTabs_descr_content\"]/div/div");
+            var innerTextNamed = nodesNamed.Select(node => node.InnerText);
+            var innerTextAuthor = nodesAuthor.Select(node => node.InnerText);
+            var innerTextSeries = nodesSeries.Select(node => node.InnerText);
+            var innerTextSubject = nodesSubjects.Select(node => node.InnerText);
 
-                var innerTextNamed = nodesNamed.Select(node => node.InnerText);
-                var innerTextPrice = nodesPrice.Select(node => node.InnerText);
-                var innerTextDescription = nodesDescription.Select(node => node.InnerText);
-
-                Console.WriteLine();
-                Console.WriteLine("Named: \t\t" + innerTextNamed.ToList()[0]);
-                Console.WriteLine("Price: " + innerTextPrice.ToList()[0]);
-                Console.WriteLine("Description: \n" + innerTextDescription.ToList()[0]);
-            }
-            catch (System.Net.WebException ex)
-            {
-                Console.WriteLine("Error load page >> " + ex.Message);
-            }
+            Console.WriteLine();
+            Console.WriteLine("Named: " + innerTextNamed.ToList()[0]);
+            Console.WriteLine("Author: " + innerTextAuthor.ToList()[0]);
+            Console.WriteLine("Author: " + innerTextSeries.ToList()[0]);
+            Console.WriteLine("Subject: " + innerTextSubject.ToList()[0]);
+            Console.WriteLine("Book Id: " + link);
         }
 
         static void Main(string[] args)
@@ -50,11 +40,8 @@ namespace Bookvoed
                 Console.WriteLine("//////////////////////////////////////////////////////////////////////////////");
                 Console.WriteLine();
                 string htmlBookvoed = "http://www.bookvoed.ru/books?q=" + search;
-                HtmlDocument doc = null;
-
                 try
                 {
-                    HtmlWeb webDocument = new HtmlWeb();
                     doc = webDocument.Load(htmlBookvoed);
                     var nodesNamed = doc.DocumentNode.SelectNodes("//*[@id=\"books\"]//div//div//div//div//div//h5//a");
                     var innerTextNamed = nodesNamed.Select(node => node.InnerText);
@@ -75,7 +62,7 @@ namespace Bookvoed
                         if (index == (numberBooks - 1))
                         {
                             HtmlAttribute att = link.Attributes["href"];
-                            getInfoForBook(new Regex(@"(?<=[\?&]id=)\d+(?=\&|\#|$)").Match(att.Value).Value);
+                            getInfoForBook(numberBooks, new Regex(@"(?<=[\?&]id=)\d+(?=\&|\#|$)").Match(att.Value).Value);
                             break;
                         }
                         else index++;
@@ -87,8 +74,6 @@ namespace Bookvoed
                 }
                 Console.ReadKey();
             }
-
-
         }
     }
 }
