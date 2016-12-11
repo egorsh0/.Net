@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Bookvoed
 {
-    class Book
+    public class Book
     {
-        public int BookId {get; set; }
+        [Key]
+        public string BookId {get; set; }
         public string Name { get; set; }
-        public string Author { get; set; }
         public string Series { get; set; }
         public string Subject { get; set; }
+
+        public virtual Author Author { get; set; }
     }
 }
