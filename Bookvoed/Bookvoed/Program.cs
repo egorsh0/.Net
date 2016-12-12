@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -65,20 +66,24 @@ namespace Bookvoed
             string baseUrl = "http://www.bookvoed.ru/book?id=" + link;
             driver.Navigate().GoToUrl(baseUrl);
             driver.FindElement(By.CssSelector("#aboutTabs_info_name > div.tj.wB")).Click();
-
+            
             var name = driver.FindElement(By.CssSelector("h1")).Text;
+            name = Regex.Replace(name, @"\r\n", " ");
             var author = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[1]/td[2]")).Text;
             var series = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[3]/td[2]")).Text; ;
             var subject = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[4]/td[2]")).Text;
-            var year = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[6]/td[2]")).Text;
+            driver.Close();
 
-            Console.WriteLine("Название:" + name);
-            Console.WriteLine();
-            Console.WriteLine("Автор: " + author);
-            Console.WriteLine("Серия: " + series);
-            Console.WriteLine("Издательство: " + subject);
-            Console.WriteLine("Год: " + year);
+            Book book = new Book
+            {
+                Name = name,
+                Author = author,
+                Subject = subject,
+                Series = series
+            };
 
+            show(book);
+            
             Console.ReadKey();
         }
         private static void Menu()
@@ -87,6 +92,15 @@ namespace Bookvoed
             Console.WriteLine("1) Поиск по ID");
             Console.WriteLine("2) Поиск по KEYWORD");
             Console.WriteLine("3) - EXIT");
+        }
+
+        private static void show(Book book)
+        {
+            Console.WriteLine();
+            Console.WriteLine("{0, 20}: {1}", "Наименование", book.Name);
+            Console.WriteLine("{0, 20}: {1}", "Автор", book.Author);
+            Console.WriteLine("{0, 20}: {1}", "Серия", book.Series);
+            Console.WriteLine("{0, 20}: {1}", "Издательство", book.Subject);
         }
 
         static void Main(string[] args)
