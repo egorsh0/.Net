@@ -20,7 +20,7 @@
                         </ListView.View>
                     </ListView>
                     <TextBox x:Name="keywordTextBox" HorizontalAlignment="Left" Height="22" Margin="59,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
-                    <Button x:Name="keywordSearchButton" Content="Найти" HorizontalAlignment="Left" Margin="262,14,0,0" VerticalAlignment="Top" Width="59" Height="22"/>
+                    <Button x:Name="keywordSearchButton" Content="Найти" HorizontalAlignment="Left" Margin="262,14,0,0" VerticalAlignment="Top" Width="59" Height="22" Click="keywordSearchButton_Click"/>
                     <Label x:Name="AuthorKeywordLabel" Content="Автор" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="48"/>
                     <Label x:Name="NameKeywordLabel" Content="Название" HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.423"/>
                     <Label x:Name="SeriesKeywordLabel" Content="Серия" HorizontalAlignment="Left" Margin="10,278,0,0" VerticalAlignment="Top"/>
@@ -35,7 +35,7 @@
                 <Grid Background="#FFE5E5E5">
                     <Label x:Name="IDlabel" Content="Поиск" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="IDTextBox" HorizontalAlignment="Left" Height="22" Margin="59,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198"/>
-                    <Button x:Name="IDSearchButton" Content="Найти" HorizontalAlignment="Left" Margin="262,14,0,0" VerticalAlignment="Top" Width="59" Height="22"/>
+                    <Button x:Name="IDSearchButton" Content="Найти" HorizontalAlignment="Left" Margin="262,14,0,0" VerticalAlignment="Top" Width="59" Height="22" Click="IDSearchButton_Click"/>
                     <Label x:Name="AuthorIDLabel" Content="Автор" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="48"/>
                     <Label x:Name="NameIDLabel" Content="Название" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,0.423"/>
                     <Label x:Name="SeriesIDLabel" Content="Серия" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top"/>
