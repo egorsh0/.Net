@@ -4,8 +4,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using System.Net;
 
 namespace Bookvoed
 {
@@ -62,29 +61,33 @@ namespace Bookvoed
 
         private static void getInfoById(string link)
         {
-            ChromeDriver driver = new ChromeDriver();
-            string baseUrl = "http://www.bookvoed.ru/book?id=" + link;
-            driver.Navigate().GoToUrl(baseUrl);
-            driver.FindElement(By.CssSelector("#aboutTabs_info_name > div.tj.wB")).Click();
-            
-            var name = driver.FindElement(By.CssSelector("h1")).Text;
-            name = Regex.Replace(name, @"\r\n", " ");
-            var author = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[1]/td[2]")).Text;
-            var series = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[3]/td[2]")).Text; ;
-            var subject = driver.FindElement(By.XPath("//*[@id=\"aboutTabs_info_content\"]/div/table/tbody/tr[4]/td[2]")).Text;
-            driver.Close();
-
-            Book book = new Book
+            try
             {
-                Name = name,
-                Author = author,
-                Subject = subject,
-                Series = series
-            };
+                HtmlWeb Web = new HtmlWeb();
+                HtmlDocument HtmlDoc = Web.Load("http://www.bookvoed.ru/book?id=" + link + "#info");
+                var nameBook = HtmlDoc.DocumentNode.SelectSingleNode("//h1[contains(@itemprop,'name')]").InnerText.Replace(@"\r\n", " ");
+                var authorBook = HtmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"aboutTabs_info_content\"]//div//table//tr[1]//td[2]//a").InnerText;
+                var seriesBook = HtmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"aboutTabs_info_content\"]//div//table//tr[3]//td[2]//a").InnerText;
+                var subjectBook = HtmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"aboutTabs_info_content\"]//div//table//tr[4]//td[2]//a").InnerText;
 
-            show(book);
-            
-            Console.ReadKey();
+                Book book = new Book
+                {
+                    Id = link,
+                    Name = nameBook,
+                    Author = authorBook,
+                    Subject = seriesBook,
+                    Series = subjectBook
+                };
+
+                show(book);
+
+                Console.ReadKey();
+            }
+            catch (WebException)
+            {
+
+                Console.WriteLine("\nError to connect");
+            }
         }
         private static void Menu()
         {
@@ -97,6 +100,7 @@ namespace Bookvoed
         private static void show(Book book)
         {
             Console.WriteLine();
+            Console.WriteLine("{0, 20}: {1}", "ID", book.Id);
             Console.WriteLine("{0, 20}: {1}", "Наименование", book.Name);
             Console.WriteLine("{0, 20}: {1}", "Автор", book.Author);
             Console.WriteLine("{0, 20}: {1}", "Серия", book.Series);
