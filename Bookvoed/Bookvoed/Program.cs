@@ -50,6 +50,42 @@ namespace Bookvoed
             }
         }
 
+        private static void addInDB(dbBook book)
+        {
+            using (var Db = new LiteDatabase(@"data.db"))
+            {
+                var Books = Db.GetCollection<dbBook>("books");
+                Books.Insert(book);
+            }
+        }
+
+        private static void addInContext(dbBook book)
+        {
+            using (var Db = new BookContext())
+            {
+                var author = Db.Authors.Find(book.Author);
+                if (author == null)
+                {
+                    author = new Author()
+                    {
+                        nameAuthor = book.Author
+                    };
+                }
+
+                var bookNew = new Book()
+                {
+                    BookId = book.BookId,
+                    Name = book.Name,
+                    Author = author,
+                    Series = book.Series,
+                    Subject = book.Subject
+                };
+
+                Db.Books.Add(bookNew);
+                Db.SaveChanges();
+            }
+        }
+
         private static void getInfoById(string link)
         {
             bool isDb = false;
@@ -75,47 +111,18 @@ namespace Bookvoed
                 var subjectBook = HtmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"aboutTabs_info_content\"]//div//table//tr[4]//td[2]//a").InnerText;
 
                 var BookForDB = new dbBook()
-                    {
-                        BookId = link,
-                        Name = nameBook,
-                        Author = authorBook,
-                        Series = seriesBook,
-                        Subject = subjectBook
+                {
+                    BookId = link,
+                    Name = nameBook,
+                    Author = authorBook,
+                    Series = seriesBook,
+                    Subject = subjectBook
                 };
-                    showInfo(BookForDB);
 
-                    using (var Db = new LiteDatabase(@"data.db"))
-                    {
-                        var Books = Db.GetCollection<dbBook>("books");
-                        Books.Insert(BookForDB);
-                    }
-
-                    using (var Db = new BookContext())
-                    {
-                        var authorNew = Db.Authors.Find(BookForDB.Author);
-                        if (authorNew == null)
-                        {
-                            authorNew = new Author()
-                            {
-                                nameAuthor = BookForDB.Author
-                            };
-                        }
-
-                        var bookNew = new Book()
-                        {
-                            BookId = BookForDB.BookId,
-                            Name = BookForDB.Name,
-                            Author = authorNew,
-                            Series = BookForDB.Series,
-                            Subject = BookForDB.Subject
-                        };
-
-                        Db.Books.Add(bookNew);
-                        Db.SaveChanges();
-                    }
+                addInDB(BookForDB);
+                addInContext(BookForDB);
+                showInfo(BookForDB);
             }
-            Console.WriteLine();
-            Console.ReadKey();
         }
 
         private static void getBooksByAuthor(string author)
@@ -184,6 +191,7 @@ namespace Bookvoed
             Console.WriteLine("{0, 20}: {1}", "Автор", book.Author);
             Console.WriteLine("{0, 20}: {1}", "Серия", book.Series);
             Console.WriteLine("{0, 20}: {1}", "Издательство", book.Subject);
+            Console.ReadLine();
         }
 
         private static void Menu()
