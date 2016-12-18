@@ -1,0 +1,11 @@
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\Bookvoed.exe.config
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\Bookvoed.exe
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\Bookvoed.pdb
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\HtmlAgilityPack.dll
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\bin\Debug\HtmlAgilityPack.xml
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.csprojResolveAssemblyReference.cache
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.Resource.resources
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.csproj.GenerateResource.Cache
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.exe
+C:\Users\egors\OneDrive\dotNet\.Net\Bookvoed\Bookvoed\obj\Debug\Bookvoed.pdb
