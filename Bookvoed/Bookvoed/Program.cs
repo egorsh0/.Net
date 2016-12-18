@@ -130,7 +130,7 @@ namespace Bookvoed
             using (var Db = new BookContext())
             {
                 var Author = Db.Authors.Find(author);
-                var books = Db.Books.Where(b => b.Author.nameAuthor == author).Select(c => c);
+                var books = Db.Books.Where(b => b.Author.nameAuthor == author);
                 Console.WriteLine("Списо книг автора  {0}:", author);
                 foreach (var Book in books)
                 {

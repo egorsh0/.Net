@@ -1,6 +1,6 @@
 ﻿namespace Bookvoed
 {
-    class dbBook
+    public class dbBook
     {
         public string BookId { get; set; }
         public string Name { get; set; }
