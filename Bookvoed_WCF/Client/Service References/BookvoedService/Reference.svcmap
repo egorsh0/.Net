@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b925f109-92bd-4871-b149-a73235e68119" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:58863/BookvoedService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BookvoedService.xsd" MetadataType="Schema" ID="1b07b9c6-685b-45cc-8e07-0672341786f7" SourceId="1" SourceUrl="http://localhost:58863/BookvoedService.svc?xsd=xsd2" />
+    <MetadataFile FileName="BookvoedService.wsdl" MetadataType="Wsdl" ID="4581d5c2-7961-4e53-a716-065555fb0c29" SourceId="1" SourceUrl="http://localhost:58863/BookvoedService.svc?wsdl" />
+    <MetadataFile FileName="BookvoedService1.xsd" MetadataType="Schema" ID="11282a87-188c-4c08-9087-e49675a3a4eb" SourceId="1" SourceUrl="http://localhost:58863/BookvoedService.svc?xsd=xsd0" />
+    <MetadataFile FileName="BookvoedService2.xsd" MetadataType="Schema" ID="6eceb237-83c4-4d93-93cf-4179d869b3af" SourceId="1" SourceUrl="http://localhost:58863/BookvoedService.svc?xsd=xsd1" />
+    <MetadataFile FileName="BookvoedService.disco" MetadataType="Disco" ID="9a7a8885-9e51-4944-9185-e4f5d2327008" SourceId="1" SourceUrl="http://localhost:58863/BookvoedService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
