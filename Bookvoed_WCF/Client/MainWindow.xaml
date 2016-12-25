@@ -11,7 +11,11 @@
         <ViewModel:ViewModel/>
     </Window.DataContext>
     <Grid Margin="0,0,2,9">
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="373" Margin="10,10,0,0" VerticalAlignment="Top" Width="331">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="119*"/>
+            <ColumnDefinition Width="232*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="373" Margin="10,10,0,0" VerticalAlignment="Top" Width="331" Grid.ColumnSpan="2">
             <TabItem Header="Keyword" Margin="-2,-2,3,0">
                 <Grid Background="#FFE5E5E5" Margin="0,8,2,-7">
                     <Grid.ColumnDefinitions>
@@ -170,26 +174,6 @@
                         Width="118" 
                         IsReadOnly="True"/>
 
-                </Grid>
-            </TabItem>
-            <TabItem Header="All author" HorizontalAlignment="Left" Height="20" VerticalAlignment="Bottom" Width="89" Margin="-2,-2,-33,2">
-                <Grid Background="#FFE5E5E5">
-                    <Label x:Name="AuthorsLabel" Content="Автор" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="55"/>
-
-                    <ListView x:Name="AuthorsListView" 
-                              HorizontalAlignment="Left" 
-                              Height="294" Margin="10,41,0,0" 
-                              VerticalAlignment="Top" Width="305" 
-                              ItemsSource="{Binding ShowAuthorsInfo}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding BookId}" Header="№" Width="Auto"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Название книги" Width="Auto"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <TextBox x:Name="nameAuthorTextBox" HorizontalAlignment="Left" Height="23" Margin="65,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" Text="{Binding queryAuthor}"/>
-                    <Button x:Name="searchAuthorButton" Content="Найти" HorizontalAlignment="Left" Margin="256,10,0,0" VerticalAlignment="Top" Width="59" Command="{Binding SearchAuthor, Mode=OneWay}"/>
                 </Grid>
             </TabItem>
         </TabControl>

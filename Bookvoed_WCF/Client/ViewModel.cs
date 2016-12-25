@@ -13,14 +13,11 @@ namespace Bookvoed
         //Команды
         private ICommand _searchID;
         private ICommand _searchKeyword;
-        private ICommand _searchAuthor;
         //Запросы
         public string queryId { get; set; }
         public string queryKeyword { get; set; }
-        public string queryAuthor { get; set; }
 
         private dbBook _showIDValue;
-        private List<Book> _showBooksValue;
         private dbBook _showKeywordValue;
 
         public dbBook ShowIDInfo
@@ -40,16 +37,6 @@ namespace Bookvoed
             {
                 _showKeywordValue = value;
                 RaisePropertyChanged(() => ShowKeywordInfo);
-            }
-        }
-
-        public List<Book> ShowAuthorsInfo
-        {
-            get { return _showBooksValue; }
-            set
-            {
-                _showBooksValue = value;
-                RaisePropertyChanged(() => ShowAuthorsInfo);
             }
         }
 
@@ -74,17 +61,5 @@ namespace Bookvoed
                 }));
             }
         }
-
-        public ICommand SearchAuthor
-        {
-            get
-            {
-                return _searchAuthor ?? (_searchAuthor = new RelayCommand(() =>
-                {
-                    ShowAuthorsInfo = new List<Book>(client.getBookByAuthor(queryAuthor));
-                }));
-            }
-        }
-
     }
 }
