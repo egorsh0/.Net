@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>My Shows Parser</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div>
+        <h2>Книги в БД:</h2>
+        <ul id="books" />
+    </div>
+    <div>
+        <h2>Поиск книги по Id</h2>
+        <input type="text" id="searchIDIDBook" size="6" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="book"/>
+
+        <h2>Поиск книги по клюючевому слову</h2>
+        <input type="text" id="searchIDKeywordBook" size="20" />
+        <input type="button" value="Search" onclick="findKeyword();" />
+        <p id="bookWord"/>
+        
+        <h2>Добавить сериал в базу по Id </h2>
+        <h4> Id </h4>
+        <input type="text" id="addBookID" size="5" />
+        <p/>
+        <h4> Название </h4>
+        <input type="text" id="BookName" size="20" />
+        <p/>
+        <input type="button" value="Add" onclick="add();" />
+
+        <h2>Удалить книгу по Id </h2>
+        <input type="text" id="delBookID" size="5" />
+        <input type="button" value="Delete" onclick="del();" />
+    </div>
+    
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+
+    var uri = 'api/bookvoed';
+
+    $(document).ready(function () {
+      $.getJSON(uri)
+          .done(function (data) {
+            $.each(data, function (key, item) {
+              $('<li>', { text: formatItem(item) }).appendTo($('#books'));
+            });
+          });
+    });
+
+    function formatItem(item) {
+        return item.BookId + " /" + item.Name + " /" + item.Author + " /" + item.Series + " /" + item.Subject;
+    }
+
+    function find() {
+        var id = $('#searchIDIDBook').val();
+        $.getJSON(uri + '/' + id)
+            .done(function (data) {
+                $('#book').text(formatItem(data));
+            })
+            .fail(function (jqXHR, textStatus, err) {
+                $('#book').text('Error: ' + err);
+            });
+    }
+
+    function findKeyword() {
+        var id = $('#searchIDKeywordBook').val();
+        $.getJSON(uri + '/' + id)
+            .done(function (data) {
+                $('#bookWord').text(formatItem(data));
+            })
+            .fail(function (jqXHR, textStatus, err) {
+                $('#bookWord').text('Error: ' + err);
+            });
+    }
+
+    function add() {
+        var show = { id: $('#addBookID').val(), name: $('#BookName').val()};
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(show),
+            url: uri,
+            contentType: "application/json"
+        });
+    }
+
+    function del() {
+        var id = $('#delBookID').val();
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("DELETE", uri + '/' + id);
+        xmlhttp.send();
+    }
+    </script>
+</body>
+</html>
