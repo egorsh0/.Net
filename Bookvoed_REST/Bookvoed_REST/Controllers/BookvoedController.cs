@@ -9,7 +9,7 @@ using Bookvoed_REST.Models;
 
 namespace Bookvoed_REST.Controllers
 {
-    public class Controller : ApiController
+    public class BookvoedController : ApiController
     {
         [HttpPost]
         public void AddInDB([FromBody]dbBook book)
@@ -41,21 +41,6 @@ namespace Bookvoed_REST.Controllers
                 var response = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
                     Content = new StringContent(string.Format("Нет книги c ID = {0}", id)),
-                    ReasonPhrase = "Книги нет"
-                };
-                throw new HttpResponseException(response);
-            }
-            return book;
-        }
-
-        public dbBook getBookByKeyword(string keyword)
-        {
-            var book = Parser.getBookByKeyword(keyword);
-            if (book == null)
-            {
-                var response = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent(string.Format("Нет книги по ключевому слову '{0}'", keyword)),
                     ReasonPhrase = "Книги нет"
                 };
                 throw new HttpResponseException(response);
